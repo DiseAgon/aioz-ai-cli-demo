@@ -33,7 +33,7 @@ This GitHub repo keeps **only the latest** release. Older tags are removed.
 | `ai-cli status` / `ai-cli logs` | Process and logs for `--home` |
 | `ai-cli stats` | Node statistics |
 | `ai-cli storage show` / `ai-cli storage limit 10` | Storage cap (must be **greater than 2 GB**) |
-| `ai-cli reward balance` / `ai-cli reward withdraw` | Reward balance and withdraw to a MetaMask `0x` address |
+| `ai-cli reward balance` / `ai-cli reward withdraw` | Reward balance and withdraw to a MetaMask `0x` address (minimum 0.01 AIOZ) |
 | `ai-cli update` | Check this GitHub latest for a newer CLI |
 | `ai-cli doctor` | Local health (workspace, disk, runtime, GPU) |
 
