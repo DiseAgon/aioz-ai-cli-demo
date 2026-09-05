@@ -22,21 +22,22 @@ source ~/.bashrc
 ai-cli version
 ```
 
-This GitHub repo keeps **only the latest** release. Older tags are removed.
+Installs `~/.local/bin/ai-cli` (not the current working directory). This GitHub repo keeps **only the latest** release. Older tags are removed.
 
 ## Demo features
 
 | Command | What it demos |
 |---|---|
 | `ai-cli keytool new --save-priv-key priv.json` | Create a node credential file |
-| `ai-cli start --priv-key-file priv.json` | Start this wallet's node (Ctrl+C stops this home) |
+| `ai-cli start --priv-key-file priv.json` | Start this wallet's node (Ctrl+C stops this wallet) |
 | `ai-cli status --priv-key-file priv.json` / `ai-cli logs --priv-key-file priv.json` | Process and `node.log` for this wallet |
+| `ai-cli stats --priv-key-file priv.json` | Runtime node info |
 | `ai-cli storage show --priv-key-file priv.json` | Cap and used (GB/MB; must be greater than 2 GB) |
-| `ai-cli reward balance` / `ai-cli reward withdraw` | Rewards (minimum withdraw 0.01 AIOZ) |
+| `ai-cli reward balance` / `ai-cli reward withdraw` `--priv-key-file priv.json` | Rewards (minimum withdraw 0.01 AIOZ) |
 | `ai-cli update` | Check this GitHub latest |
-| `ai-cli doctor --priv-key-file priv.json` | Machine health, wallet, and log path |
+| `ai-cli doctor --priv-key-file priv.json` | os, disk, runtime, GPU, wallet, log (not keytool) |
 
-Without `--home`, data for a wallet is `~/.local/share/aioz/ai-nodes/<0x…>/`.
+Without `--home`, data for a wallet is `~/.local/share/aioz/ai-nodes/<uuid>/`. Wallet is `identity/address`, not the folder name.
 
 ## Release assets
 
