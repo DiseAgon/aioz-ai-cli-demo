@@ -45,4 +45,6 @@ Each latest release contains:
 
 - `ai-cli` — Linux amd64 operator binary (runtime + keytool embedded)
 - `install.sh` — downloads `ai-cli` onto `~/.local/bin` and persists PATH
-- `manifest.json` — version/commit + SHA-256 for `ai-cli`
+- `manifest.json` — version/commit + SHA-256 + Ed25519 `sig` for `ai-cli`
+
+Operators do not need a `.env`. Hub and the version-check URL are baked into the binary. `install.sh` verifies the manifest signature before installing.
