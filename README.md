@@ -29,15 +29,16 @@ Installs `~/.local/bin/ai-cli` (not the current working directory). This GitHub 
 | Command | What it demos |
 |---|---|
 | `ai-cli keytool new --save-priv-key priv.json` | Create a node credential file |
+| `ai-cli storage limit 10 --priv-key-file priv.json` | Set the storage cap (**greater than 2 GB**) before start |
 | `ai-cli start --priv-key-file priv.json` | Start this wallet's node (Ctrl+C stops this wallet) |
 | `ai-cli status --priv-key-file priv.json` / `ai-cli logs --priv-key-file priv.json` | Process and `ai.log` for this wallet |
 | `ai-cli stats --priv-key-file priv.json` | Runtime node info |
-| `ai-cli storage show --priv-key-file priv.json` | Cap and used (GB/MB; must be greater than 2 GB) |
+| `ai-cli storage show --priv-key-file priv.json` | Cap and used; warns at ≥90% so you can raise `storage limit` |
 | `ai-cli reward balance` / `ai-cli reward withdraw` `--priv-key-file priv.json` | Rewards (minimum withdraw 0.01 AIOZ) |
 | `ai-cli update` | Check this GitHub latest |
 | `ai-cli doctor --priv-key-file priv.json` | os, disk, runtime, GPU, wallet, log (not keytool) |
 
-Without `--home`, data for a wallet is `~/.local/share/aioz/ai-nodes/<uuid>/`. Wallet is `identity/address`, not the folder name.
+Without `--home`, data for a wallet is `~/.local/share/aioz/ai-nodes/<uuid>/`. Wallet is `identity/address` (next to pid), not the folder name.
 
 ## Release assets
 
