@@ -37,7 +37,7 @@ ai-cli version
 │                                                                      │
 │  Version           0.11                                              │
 │  Commit            v0.11.0-demo                                      │
-│  Built             2026-09-07T10:21:43Z                              │
+│  Built             2026-01-01T00:00:00Z                              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -51,7 +51,7 @@ ai-cli keytool new --save-priv-key priv.json
 ```
 ╭─ keytool ────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Node ETH          0xBc8D…5D8F                                       │
+│  Node ETH          0xAbc0…def1                                       │
 │  Mnemonic          … twelve words …                                  │
 │                                                                      │
 │  ⚠                 saved priv.json                                   │
@@ -96,11 +96,11 @@ ai-cli start --priv-key-file priv.json
 │  Status            running                                           │
 │  CLI               0.11                                              │
 │  Update            CLI is up to date                                 │
-│  PID               1880365                                           │
+│  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
 │  Storage           10 GB                                             │
 │  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  ETH               0xBc8D…5D8F                                       │
+│  ETH               0xAbc0…def1                                       │
 │                                                                      │
 │  ⚠                 streaming logs; Ctrl+C to stop the node           │
 │                                                                      │
@@ -135,7 +135,7 @@ ai-cli status --priv-key-file priv.json
 │                                                                      │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
 │  Status            stopped                                           │
-│  ETH               0xBc8D…5D8F                                       │
+│  ETH               0xAbc0…def1                                       │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -164,7 +164,7 @@ ai-cli stats --priv-key-file priv.json
 ╭─ node ───────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Status            Offline                                           │
-│  Wallet            0xBc8D…5D8F                                       │
+│  Wallet            0xAbc0…def1                                       │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -179,7 +179,7 @@ ai-cli storage show --priv-key-file priv.json
 ╭─ storage ────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Limit             10 GB                                             │
-│  Used              11 KB                                             │
+│  Used              1.2 GB                                            │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -201,9 +201,9 @@ ai-cli reward balance --priv-key-file priv.json
 ```
 ╭─ reward ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Spendable         1.49 AIOZ                                         │
-│  Earned            1.5 AIOZ                                          │
-│  Count             1                                                 │
+│  Spendable         2.5 AIOZ                                          │
+│  Earned            2.5 AIOZ                                          │
+│  Count             10                                                │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -238,12 +238,12 @@ ai-cli doctor --priv-key-file priv.json
 │  Overall           ok                                                │
 │  Os                linux/amd64                                       │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Disk              622.5 GB free                                     │
+│  Disk              100 GB free                                       │
 │  Runtime           ok                                                │
-│  Wallet            0xBc8D…5D8F                                       │
+│  Wallet            0xAbc0…def1                                       │
 │  Log               ~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log     │
 │  Identity          credential is --priv-key-file                     │
-│  Gpu               NVIDIA TITAN V, 12288 MB                          │
+│  Gpu               NVIDIA, 8 GB                                      │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
