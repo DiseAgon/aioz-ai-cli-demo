@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="109" viewBox="0 0 620 109" role="img" aria-label="withdraw">
+<rect width="100%" height="100%" rx="8" fill="#0D0D0F"/>
+<text xml:space="preserve" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace" font-size="13" letter-spacing="0">
+<tspan x="8.0" y="23" fill="#585858">╭─</tspan>
+<tspan x="24.8" y="23" fill="#D787FF" font-weight="700"> withdraw </tspan>
+<tspan x="108.8" y="23" fill="#585858">───────────────────────────────────────────────────────────╮</tspan>
+<tspan x="8.0" y="40" fill="#585858">│</tspan>
+<tspan x="16.4" y="40" fill="#EEEEEE">                                                                      </tspan>
+<tspan x="604.4" y="40" fill="#585858">│</tspan>
+<tspan x="8.0" y="57" fill="#585858">│</tspan>
+<tspan x="16.4" y="57" fill="#EEEEEE">  </tspan>
+<tspan x="33.2" y="57" fill="#8A8A8A">Tx              </tspan>
+<tspan x="167.6" y="57" fill="#EEEEEE">  </tspan>
+<tspan x="184.4" y="57" fill="#87D787">2604F553…944D59</tspan>
+<tspan x="310.4" y="57" fill="#EEEEEE">                                   </tspan>
+<tspan x="604.4" y="57" fill="#585858">│</tspan>
+<tspan x="8.0" y="74" fill="#585858">│</tspan>
+<tspan x="16.4" y="74" fill="#EEEEEE">                                                                      </tspan>
+<tspan x="604.4" y="74" fill="#585858">│</tspan>
+<tspan x="8.0" y="91" fill="#585858">╰──────────────────────────────────────────────────────────────────────╯</tspan>
+</text></svg>
