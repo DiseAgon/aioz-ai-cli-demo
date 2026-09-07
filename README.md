@@ -32,15 +32,7 @@ Verify the installation:
 ai-cli version
 ```
 
-```
-╭─ ai-cli ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Version           0.11                                              │
-│  Commit            v0.11.0-demo                                      │
-│  Built             2026-01-01T00:00:00Z                              │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/version.svg" alt="Sample output of ai-cli version" width="620">
 
 Create a node credential file (mode `0600`). This does not create a data folder.
 
@@ -48,17 +40,7 @@ Create a node credential file (mode `0600`). This does not create a data folder.
 ai-cli keytool new --save-priv-key priv.json
 ```
 
-```
-╭─ keytool ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Node ETH          0xAbc0…def1                                       │
-│  Mnemonic          … twelve words …                                  │
-│                                                                      │
-│  ⚠                 saved priv.json                                   │
-│                    (store the mnemonic now; it is not shown again)   │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/keytool-new.svg" alt="Sample output of ai-cli keytool new" width="620">
 
 `--save-priv-key` writes the private key JSON. Store the mnemonic now; it is not shown again.
 
@@ -74,15 +56,7 @@ Set a storage cap **before** start. The value must be **greater than 2 GB**. The
 ai-cli storage limit 10 --priv-key-file priv.json
 ```
 
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/storage-limit.svg" alt="Sample output of ai-cli storage limit" width="620">
 
 Start the node. Ctrl+C stops **this wallet only**.
 
@@ -90,23 +64,7 @@ Start the node. Ctrl+C stops **this wallet only**.
 ai-cli start --priv-key-file priv.json
 ```
 
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Status            running                                           │
-│  CLI               0.11                                              │
-│  Update            CLI is up to date                                 │
-│  PID               12345                                             │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Storage           10 GB                                             │
-│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  ETH               0xAbc0…def1                                       │
-│                                                                      │
-│  ⚠                 streaming logs; Ctrl+C to stop the node           │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-INFO  node running; Ctrl+C to stop
-```
+<img src="samples/start.svg" alt="Sample output of ai-cli start" width="620">
 
 `--priv-key-file` is required. You do not need `--home` for the default layout. Data for this wallet is `~/.local/share/aioz/ai-nodes/<uuid>/`. The wallet label is `identity/address` (next to the pid file), not the folder name.
 
@@ -118,9 +76,7 @@ Update the CLI:
 ai-cli update
 ```
 
-```
-CLI is up to date
-```
+<img src="samples/update.svg" alt="Sample output of ai-cli update">
 
 ## Usage
 
@@ -130,15 +86,7 @@ CLI is up to date
 ai-cli status --priv-key-file priv.json
 ```
 
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Status            stopped                                           │
-│  ETH               0xAbc0…def1                                       │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/status.svg" alt="Sample output of ai-cli status" width="620">
 
 ```bash
 ai-cli status --all
@@ -160,14 +108,7 @@ Tails this wallet's `ai.log` (redacted on screen).
 ai-cli stats --priv-key-file priv.json
 ```
 
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Status            Offline                                           │
-│  Wallet            0xAbc0…def1                                       │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/stats.svg" alt="Sample output of ai-cli stats" width="620">
 
 ### Storage
 
@@ -175,14 +116,7 @@ ai-cli stats --priv-key-file priv.json
 ai-cli storage show --priv-key-file priv.json
 ```
 
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Used              1.2 GB                                            │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/storage-show.svg" alt="Sample output of ai-cli storage show" width="620">
 
 Warns when used is at least 90% of the cap.
 
@@ -198,15 +132,7 @@ Must be greater than 2 GB. Applied on the next `start`.
 ai-cli reward balance --priv-key-file priv.json
 ```
 
-```
-╭─ reward ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Spendable         2.5 AIOZ                                          │
-│  Earned            2.5 AIOZ                                          │
-│  Count             10                                                │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/reward.svg" alt="Sample output of ai-cli reward balance" width="620">
 
 Works with the node off.
 
@@ -216,13 +142,7 @@ Works with the node off.
 ai-cli reward withdraw --priv-key-file priv.json --amount 1.5 --address 0x… --yes
 ```
 
-```
-╭─ withdraw ───────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Tx                2604F553…944D59                                   │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/withdraw.svg" alt="Sample output of ai-cli reward withdraw" width="620">
 
 Destination is a MetaMask `0x` on AIOZ Chain. Minimum withdraw is **0.01 AIOZ**.
 
@@ -232,18 +152,4 @@ Destination is a MetaMask `0x` on AIOZ Chain. Minimum withdraw is **0.01 AIOZ**.
 ai-cli doctor --priv-key-file priv.json
 ```
 
-```
-╭─ doctor ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Overall           ok                                                │
-│  Os                linux/amd64                                       │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Disk              100 GB free                                       │
-│  Runtime           ok                                                │
-│  Wallet            0xAbc0…def1                                       │
-│  Log               ~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log     │
-│  Identity          credential is --priv-key-file                     │
-│  Gpu               NVIDIA, 8 GB                                      │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
+<img src="samples/doctor.svg" alt="Sample output of ai-cli doctor" width="620">
