@@ -103,7 +103,9 @@ Response:
 - Use a **dedicated key for each node**. Do not reuse a main wallet, exchange key, or another node's key.
 - Keep an offline backup. **Never paste** the mnemonic or private key into websites, chats, or support tickets.
 
-Set a storage cap **before** start. The value must be **greater than 2 GB**. There is no 2 GB default.
+## Set storage limit
+
+This step is **required before `start`**. The value must be **greater than 2 GB**. There is no 2 GB default. `start` fails if the cap is missing.
 
 For Windows
 
@@ -129,7 +131,9 @@ Response:
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
 
-### Start ai-node
+Run the same command again later to raise the cap. It is applied on the next `start`.
+
+## Start ai-node
 
 For Windows
 
@@ -208,34 +212,6 @@ For Linux
 ```
 
 Lists every home on this machine. Does not need `--priv-key-file`.
-
-### Set storage limit
-
-For Windows
-
-```powershell
-.\ai-cli.exe storage limit 10 --priv-key-file privkey.json
-```
-
-For Linux
-
-```bash
-./ai-cli storage limit 10 --priv-key-file privkey.json
-```
-
-Must be **greater than 2 GB**. Applied on the next `start`.
-
-Response:
-
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
 
 ### Show storage
 
