@@ -1,169 +1,327 @@
 ## AIOZ AI CLI
 
-Linux amd64 and Windows amd64 demo of the AIOZ AI operator CLI.
+Linux amd64 and Windows amd64 demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
 ## What is AIOZ AI CLI?
 
 AIOZ AI CLI (`ai-cli`) is a command-line application that runs an AIOZ AI node on your machine, takes AI tasks, and earns AIOZ rewards.
 
-This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
+The node runtime and keytool are **bundled inside the binary** and extracted on first use.
 
 ## Requirements
 
-- Linux amd64 (`x86_64`) — Ubuntu 20.04 or similar
-- Windows amd64 (`x86_64`) — Windows 10 or later
+- Windows 10 64-bit (amd64) or later
+- Ubuntu 20.04 64-bit (amd64) or later
 
-macOS and other architectures are not published here.
+macOS is not published in this demo.
 
-## Getting started
-
-Install **`ai-cli` only**. The node runtime and keytool are bundled inside the binary and extracted on first use.
-
-### Linux
-
-```bash
-curl -fsSL https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/install.sh | bash
-source ~/.bashrc
-```
-
-`install.sh` verifies the signed `manifest.json` (Ed25519) and SHA-256, then installs `~/.local/bin/ai-cli`.
+## Install
 
 ### Windows
 
-In PowerShell:
+Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/install.ps1 | iex"
+curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.12.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.12.zip -DestinationPath .
+ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
-`install.ps1` checks SHA-256 from `manifest.json` and installs `%LOCALAPPDATA%\AIOZ\ai-cli\ai-cli.exe` (user PATH). If SmartScreen blocks the file: Properties → Unblock, or `Unblock-File "$env:LOCALAPPDATA\AIOZ\ai-cli\ai-cli.exe"`.
+Verify the installation:
 
-Manual download: [ai-cli.exe](https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/ai-cli.exe).
+```powershell
+.\ai-cli.exe version
+```
+
+### Linux and macOS
+
+macOS archives are not published yet. For Linux amd64:
+
+```bash
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.12.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.12.tar.gz
+mv aioz-ai-cli-linux-amd64 ai-cli
+```
 
 Verify the installation:
 
 ```bash
-ai-cli version
+./ai-cli version
 ```
 
-<img src="samples/version.svg" alt="Sample output of ai-cli version" width="620">
+When macOS builds are published, the archives will be named `aioz-ai-cli-darwin-arm64-<version>.tar.gz` and `aioz-ai-cli-darwin-x86_64-<version>.tar.gz`.
 
-Create a node credential file (mode `0600`). This does not create a data folder.
+**Note:** On Windows use `.\ai-cli.exe`. On Linux and macOS use `./ai-cli`.
 
-```bash
-ai-cli keytool new --save-priv-key priv.json
+Response:
+
+```
+╭─ ai-cli ─────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Version           0.12                                              │
+│  Commit            v0.12.0-demo                                      │
+│  Built             2026-01-01T00:00:00Z                              │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
 ```
 
-<img src="samples/keytool-new.svg" alt="Sample output of ai-cli keytool new" width="620">
+## Getting started
 
-`--save-priv-key` writes the private key JSON. Store the mnemonic now; it is not shown again.
+### Create wallet_address, private key
+
+```powershell
+.\ai-cli keytool new --save-priv-key privkey.json
+```
+
+`--save-priv-key` writes the private key JSON (mode `0600`). Store the mnemonic now; it is not shown again. This does not create a data folder.
+
+Response:
+
+```
+╭─ keytool ────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Node ETH          0xAbc0…def1                                       │
+│  Mnemonic          … twelve words …                                  │
+│                                                                      │
+│  ⚠                 saved privkey.json                                │
+│                    (store the mnemonic now; it is not shown again)   │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
 
 **IMPORTANT**
 
-- Treat `priv.json` and the mnemonic as **wallet secrets**. Anyone who has them can control this node's rewards.
+- Treat `privkey.json` and the mnemonic as **wallet secrets**. Anyone who has them can control this node's rewards.
 - Use a **dedicated key for each node**. Do not reuse a main wallet, exchange key, or another node's key.
 - Keep an offline backup. **Never paste** the mnemonic or private key into websites, chats, or support tickets.
 
 Set a storage cap **before** start. The value must be **greater than 2 GB**. There is no 2 GB default.
 
-```bash
-ai-cli storage limit 10 --priv-key-file priv.json
+```powershell
+.\ai-cli storage limit 10 --priv-key-file privkey.json
 ```
 
-<img src="samples/storage-limit.svg" alt="Sample output of ai-cli storage limit" width="620">
+Response:
 
-Start the node. Ctrl+C stops **this wallet only**.
-
-```bash
-ai-cli start --priv-key-file priv.json
+```
+╭─ storage ────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Limit             10 GB                                             │
+│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
 ```
 
-<img src="samples/start.svg" alt="Sample output of ai-cli start" width="620">
+### Start ai-node
 
-`--priv-key-file` is required. You do not need `--home` for the default layout. Data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/` or Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>\`. The wallet label is `identity/address` (next to the pid file), not the folder name.
-
-A second credential file (`priv_2.json`) is a second wallet and a second node.
-
-Update the CLI:
-
-```bash
-ai-cli update
+```powershell
+.\ai-cli start --priv-key-file privkey.json
 ```
 
-<img src="samples/update.svg" alt="Sample output of ai-cli update">
+`--priv-key-file` is required. Ctrl+C stops **this wallet only**.
+
+Response:
+
+```
+╭─ node ───────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Status            running                                           │
+│  CLI               0.12                                              │
+│  Update            CLI is up to date                                 │
+│  PID               12345                                             │
+│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  Storage           10 GB                                             │
+│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  ETH               0xAbc0…def1                                       │
+│                                                                      │
+│  ⚠                 streaming logs; Ctrl+C to stop the node           │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+INFO  node running; Ctrl+C to stop
+```
+
+Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/` or Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>\`. The wallet label is `identity/address` (next to the pid file), not the folder name.
 
 ## Usage
 
-### Status
+### Node status
 
-```bash
-ai-cli status --priv-key-file priv.json
+```powershell
+.\ai-cli status --priv-key-file privkey.json
 ```
 
-<img src="samples/status.svg" alt="Sample output of ai-cli status" width="620">
+Response:
 
-```bash
-ai-cli status --all
+```
+╭─ node ───────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  Status            stopped                                           │
+│  ETH               0xAbc0…def1                                       │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+```powershell
+.\ai-cli status --all
 ```
 
 Lists every home on this machine. Does not need `--priv-key-file`.
 
-### Logs
+### Set storage limit
 
-```bash
-ai-cli logs --priv-key-file priv.json
+```powershell
+.\ai-cli storage limit 10 --priv-key-file privkey.json
+```
+
+Must be **greater than 2 GB**. Applied on the next `start`.
+
+Response:
+
+```
+╭─ storage ────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Limit             10 GB                                             │
+│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+### Show storage
+
+```powershell
+.\ai-cli storage show --priv-key-file privkey.json
+```
+
+Response:
+
+```
+╭─ storage ────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Limit             10 GB                                             │
+│  Used              1.2 GB                                            │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+Warns when used is at least 90% of the cap.
+
+### View reward
+
+```powershell
+.\ai-cli reward balance --priv-key-file privkey.json
+```
+
+Works with the node off.
+
+Response:
+
+```
+╭─ reward ─────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Spendable         2.5 AIOZ                                          │
+│  Earned            2.5 AIOZ                                          │
+│  Count             10                                                │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+### Withdraw reward
+
+```powershell
+.\ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
+```
+
+Response:
+
+```
+╭─ withdraw ───────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Tx                2604F553…944D59                                   │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+**Note:** `--address` is a MetaMask `0x` on AIOZ Chain. `--amount` is in AIOZ. Minimum withdraw is **0.01 AIOZ**. `--yes` skips the confirm prompt.
+
+### Recover private key from mnemonic phrase
+
+The sidecar does not take the mnemonic as a command argument (it would leak in shell history and the process list). Put the words in a file, then:
+
+```powershell
+.\ai-cli keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
+```
+
+Response:
+
+```
+╭─ keytool ────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Node ETH          0xAbc0…def1                                       │
+│                                                                      │
+│  ⚠                 saved privkey.json                                │
+│                    (store the mnemonic now; it is not shown again)   │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+### Update
+
+```powershell
+.\ai-cli update
+```
+
+Response:
+
+```
+CLI is up to date
+```
+
+### Stats / Logs
+
+```powershell
+.\ai-cli stats --priv-key-file privkey.json
+```
+
+Response:
+
+```
+╭─ node ───────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Status            Offline                                           │
+│  Wallet            0xAbc0…def1                                       │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+```powershell
+.\ai-cli logs --priv-key-file privkey.json
 ```
 
 Tails this wallet's `ai.log` (redacted on screen).
 
-### Stats
-
-```bash
-ai-cli stats --priv-key-file priv.json
-```
-
-<img src="samples/stats.svg" alt="Sample output of ai-cli stats" width="620">
-
-### Storage
-
-```bash
-ai-cli storage show --priv-key-file priv.json
-```
-
-<img src="samples/storage-show.svg" alt="Sample output of ai-cli storage show" width="620">
-
-Warns when used is at least 90% of the cap.
-
-```bash
-ai-cli storage limit 20 --priv-key-file priv.json
-```
-
-Must be greater than 2 GB. Applied on the next `start`.
-
-### Reward balance
-
-```bash
-ai-cli reward balance --priv-key-file priv.json
-```
-
-<img src="samples/reward.svg" alt="Sample output of ai-cli reward balance" width="620">
-
-Works with the node off.
-
-### Withdraw
-
-```bash
-ai-cli reward withdraw --priv-key-file priv.json --amount 1.5 --address 0x… --yes
-```
-
-<img src="samples/withdraw.svg" alt="Sample output of ai-cli reward withdraw" width="620">
-
-Destination is a MetaMask `0x` on AIOZ Chain. Minimum withdraw is **0.01 AIOZ**.
-
 ### Doctor
 
-```bash
-ai-cli doctor --priv-key-file priv.json
+```powershell
+.\ai-cli doctor --priv-key-file privkey.json
 ```
 
-<img src="samples/doctor.svg" alt="Sample output of ai-cli doctor" width="620">
+Response:
+
+```
+╭─ doctor ─────────────────────────────────────────────────────────────╮
+│                                                                      │
+│  Overall           ok                                                │
+│  Os                linux/amd64                                       │
+│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
+│  Disk              100 GB free                                       │
+│  Runtime           ok                                                │
+│  Wallet            0xAbc0…def1                                       │
+│  Log               ~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log     │
+│  Identity          credential is --priv-key-file                     │
+│  Gpu               NVIDIA, 8 GB                                      │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
