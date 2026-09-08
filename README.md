@@ -21,9 +21,12 @@ macOS is not published in this demo.
 
 Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
 
+Work in **your** profile folder (not another user's `C:\Users\...`). PowerShell as that user, not Administrator:
+
 ```powershell
-curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.17.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.17.zip -DestinationPath .
+cd $env:USERPROFILE
+curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.18.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.18.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
@@ -33,15 +36,15 @@ Verify the installation:
 .\ai-cli.exe version
 ```
 
-Use a normal PowerShell window. **Do not** "Run as administrator". Data is under `%LOCALAPPDATA%\AIOZ\ai-cli\` (your user profile). The first `start` may show a Windows Firewall prompt; allow it for private networks.
+`--save-priv-key privkey.json` writes into the current folder. `Access is denied` means that folder is not yours — `cd $env:USERPROFILE` and retry. Data is under `%LOCALAPPDATA%\AIOZ\ai-cli\`. The first `start` may show a Windows Firewall prompt; allow it for private networks.
 
 ### Linux and macOS
 
 macOS archives are not published yet. For Linux amd64:
 
 ```bash
-curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.17.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.17.tar.gz
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.18.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.18.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ```
 
@@ -60,8 +63,8 @@ Response:
 ```
 ╭─ ai-cli ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Version           0.17                                              │
-│  Commit            v0.17.0-demo                                      │
+│  Version           0.18                                              │
+│  Commit            v0.18.0-demo                                      │
 │  Built             2026-01-01T00:00:00Z                              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
@@ -157,7 +160,7 @@ Response:
 ╭─ node ───────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Status            running                                           │
-│  CLI               0.17                                              │
+│  CLI               0.18                                              │
 │  Update            CLI is up to date                                 │
 │  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
