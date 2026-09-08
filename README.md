@@ -22,8 +22,8 @@ macOS is not published in this demo.
 Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
 
 ```powershell
-curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.16.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.16.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.17.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.17.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
@@ -33,13 +33,15 @@ Verify the installation:
 .\ai-cli.exe version
 ```
 
+Use a normal PowerShell window. **Do not** "Run as administrator". Data is under `%LOCALAPPDATA%\AIOZ\ai-cli\` (your user profile). The first `start` may show a Windows Firewall prompt; allow it for private networks.
+
 ### Linux and macOS
 
 macOS archives are not published yet. For Linux amd64:
 
 ```bash
-curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.16.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.16.tar.gz
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.17.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.17.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ```
 
@@ -58,8 +60,8 @@ Response:
 ```
 ╭─ ai-cli ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Version           0.16                                              │
-│  Commit            v0.16.0-demo                                      │
+│  Version           0.17                                              │
+│  Commit            v0.17.0-demo                                      │
 │  Built             2026-01-01T00:00:00Z                              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
@@ -155,7 +157,7 @@ Response:
 ╭─ node ───────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Status            running                                           │
-│  CLI               0.16                                              │
+│  CLI               0.17                                              │
 │  Update            CLI is up to date                                 │
 │  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
