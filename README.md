@@ -1,6 +1,6 @@
 ## AIOZ AI CLI
 
-Linux amd64 demo of the AIOZ AI operator CLI.
+Linux amd64 and Windows amd64 demo of the AIOZ AI operator CLI.
 
 ## What is AIOZ AI CLI?
 
@@ -10,14 +10,16 @@ This GitHub repository is **download + version-check only**. It is not the sourc
 
 ## Requirements
 
-- Linux amd64 (`x86_64`)
-- Ubuntu 20.04 or similar is fine
+- Linux amd64 (`x86_64`) — Ubuntu 20.04 or similar
+- Windows amd64 (`x86_64`) — Windows 10 or later
 
-macOS, Windows, and other architectures are not published here.
+macOS and other architectures are not published here.
 
 ## Getting started
 
 Install **`ai-cli` only**. The node runtime and keytool are bundled inside the binary and extracted on first use.
+
+### Linux
 
 ```bash
 curl -fsSL https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/install.sh | bash
@@ -25,6 +27,18 @@ source ~/.bashrc
 ```
 
 `install.sh` verifies the signed `manifest.json` (Ed25519) and SHA-256, then installs `~/.local/bin/ai-cli`.
+
+### Windows
+
+In PowerShell:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/install.ps1 | iex"
+```
+
+`install.ps1` checks SHA-256 from `manifest.json` and installs `%LOCALAPPDATA%\AIOZ\ai-cli\ai-cli.exe` (user PATH). If SmartScreen blocks the file: Properties → Unblock, or `Unblock-File "$env:LOCALAPPDATA\AIOZ\ai-cli\ai-cli.exe"`.
+
+Manual download: [ai-cli.exe](https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/ai-cli.exe).
 
 Verify the installation:
 
@@ -66,7 +80,7 @@ ai-cli start --priv-key-file priv.json
 
 <img src="samples/start.svg" alt="Sample output of ai-cli start" width="620">
 
-`--priv-key-file` is required. You do not need `--home` for the default layout. Data for this wallet is `~/.local/share/aioz/ai-nodes/<uuid>/`. The wallet label is `identity/address` (next to the pid file), not the folder name.
+`--priv-key-file` is required. You do not need `--home` for the default layout. Data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/` or Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>\`. The wallet label is `identity/address` (next to the pid file), not the folder name.
 
 A second credential file (`priv_2.json`) is a second wallet and a second node.
 
