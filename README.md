@@ -51,7 +51,7 @@ Verify the installation:
 
 When macOS builds are published, the archives will be named `aioz-ai-cli-darwin-arm64-<version>.tar.gz` and `aioz-ai-cli-darwin-x86_64-<version>.tar.gz`.
 
-**Note:** On Windows use `.\ai-cli.exe`. On Linux and macOS use `./ai-cli`.
+**Note:** On Windows PowerShell, type `.\ai-cli.exe` (the `.\` is required; `ai-cli.exe` alone is not found). On Linux and macOS use `./ai-cli`.
 
 Response:
 
@@ -70,7 +70,7 @@ Response:
 ### Create wallet_address, private key
 
 ```powershell
-.\ai-cli keytool new --save-priv-key privkey.json
+.\ai-cli.exe keytool new --save-priv-key privkey.json
 ```
 
 `--save-priv-key` writes the private key JSON (mode `0600`). Store the mnemonic now; it is not shown again. This does not create a data folder.
@@ -98,7 +98,7 @@ Response:
 Set a storage cap **before** start. The value must be **greater than 2 GB**. There is no 2 GB default.
 
 ```powershell
-.\ai-cli storage limit 10 --priv-key-file privkey.json
+.\ai-cli.exe storage limit 10 --priv-key-file privkey.json
 ```
 
 Response:
@@ -116,7 +116,7 @@ Response:
 ### Start ai-node
 
 ```powershell
-.\ai-cli start --priv-key-file privkey.json
+.\ai-cli.exe start --priv-key-file privkey.json
 ```
 
 `--priv-key-file` is required. Ctrl+C stops **this wallet only**.
@@ -148,7 +148,7 @@ Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<u
 ### Node status
 
 ```powershell
-.\ai-cli status --priv-key-file privkey.json
+.\ai-cli.exe status --priv-key-file privkey.json
 ```
 
 Response:
@@ -164,7 +164,7 @@ Response:
 ```
 
 ```powershell
-.\ai-cli status --all
+.\ai-cli.exe status --all
 ```
 
 Lists every home on this machine. Does not need `--priv-key-file`.
@@ -172,7 +172,7 @@ Lists every home on this machine. Does not need `--priv-key-file`.
 ### Set storage limit
 
 ```powershell
-.\ai-cli storage limit 10 --priv-key-file privkey.json
+.\ai-cli.exe storage limit 10 --priv-key-file privkey.json
 ```
 
 Must be **greater than 2 GB**. Applied on the next `start`.
@@ -192,7 +192,7 @@ Response:
 ### Show storage
 
 ```powershell
-.\ai-cli storage show --priv-key-file privkey.json
+.\ai-cli.exe storage show --priv-key-file privkey.json
 ```
 
 Response:
@@ -211,7 +211,7 @@ Warns when used is at least 90% of the cap.
 ### View reward
 
 ```powershell
-.\ai-cli reward balance --priv-key-file privkey.json
+.\ai-cli.exe reward balance --priv-key-file privkey.json
 ```
 
 Works with the node off.
@@ -231,7 +231,7 @@ Response:
 ### Withdraw reward
 
 ```powershell
-.\ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
+.\ai-cli.exe reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
 ```
 
 Response:
@@ -251,7 +251,7 @@ Response:
 The sidecar does not take the mnemonic as a command argument (it would leak in shell history and the process list). Put the words in a file, then:
 
 ```powershell
-.\ai-cli keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
+.\ai-cli.exe keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
 ```
 
 Response:
@@ -270,7 +270,7 @@ Response:
 ### Update
 
 ```powershell
-.\ai-cli update
+.\ai-cli.exe update
 ```
 
 Response:
@@ -282,7 +282,7 @@ CLI is up to date
 ### Stats / Logs
 
 ```powershell
-.\ai-cli stats --priv-key-file privkey.json
+.\ai-cli.exe stats --priv-key-file privkey.json
 ```
 
 Response:
@@ -297,7 +297,7 @@ Response:
 ```
 
 ```powershell
-.\ai-cli logs --priv-key-file privkey.json
+.\ai-cli.exe logs --priv-key-file privkey.json
 ```
 
 Tails this wallet's `ai.log` (redacted on screen).
@@ -305,7 +305,7 @@ Tails this wallet's `ai.log` (redacted on screen).
 ### Doctor
 
 ```powershell
-.\ai-cli doctor --priv-key-file privkey.json
+.\ai-cli.exe doctor --priv-key-file privkey.json
 ```
 
 Response:
