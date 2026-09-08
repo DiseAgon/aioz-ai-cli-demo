@@ -22,8 +22,8 @@ macOS is not published in this demo.
 Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
 
 ```powershell
-curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.14.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.14.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.15.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.15.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
@@ -38,8 +38,8 @@ Verify the installation:
 macOS archives are not published yet. For Linux amd64:
 
 ```bash
-curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.14.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.14.tar.gz
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.15.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.15.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ```
 
@@ -58,8 +58,8 @@ Response:
 ```
 ╭─ ai-cli ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Version           0.14                                              │
-│  Commit            v0.14.0-demo                                      │
+│  Version           0.15                                              │
+│  Commit            v0.15.0-demo                                      │
 │  Built             2026-01-01T00:00:00Z                              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
@@ -127,7 +127,7 @@ Response:
 ╭─ node ───────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Status            running                                           │
-│  CLI               0.14                                              │
+│  CLI               0.15                                              │
 │  Update            CLI is up to date                                 │
 │  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
