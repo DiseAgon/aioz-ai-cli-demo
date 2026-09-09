@@ -156,7 +156,6 @@ Response:
 │                                                                      │
 │  Limit             10 GB                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
@@ -190,7 +189,6 @@ Response:
 │  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
 │  Storage           10 GB                                             │
-│  Dir               ~/.local/share/aioz/ai-nodes/<uuid>/              │
 │  ETH               0xAbc0…def1                                       │
 │                                                                      │
 │  ⚠                 streaming logs; Ctrl+C to stop the node           │
