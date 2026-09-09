@@ -1,6 +1,6 @@
 ## AIOZ AI CLI
 
-Linux amd64 and Windows amd64 demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
+Linux amd64, Windows amd64, and macOS Intel + Apple Silicon demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
 ## What is AIOZ AI CLI?
 
@@ -12,8 +12,7 @@ The node runtime and keytool are **bundled inside the binary** and extracted on 
 
 - Windows 10 64-bit (amd64) or later
 - Ubuntu 20.04 64-bit (amd64) or later
-
-macOS is not published in this demo.
+- macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64)
 
 ## Install
 
@@ -25,8 +24,8 @@ Work in **your** profile folder (not another user's `C:\Users\...`). PowerShell 
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.18.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.18.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-windows-amd64-0.19.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.19.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
@@ -38,13 +37,11 @@ Verify the installation:
 
 `--save-priv-key privkey.json` writes into the current folder. `Access is denied` means that folder is not yours — `cd $env:USERPROFILE` and retry. Data is under `%LOCALAPPDATA%\AIOZ\ai-cli\`. The first `start` may show a Windows Firewall prompt; allow it for private networks.
 
-### Linux and macOS
-
-macOS archives are not published yet. For Linux amd64:
+### Linux
 
 ```bash
-curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.18.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.18.tar.gz
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-linux-amd64-0.19.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.19.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ```
 
@@ -54,7 +51,35 @@ Verify the installation:
 ./ai-cli version
 ```
 
-When macOS builds are published, the archives will be named `aioz-ai-cli-darwin-arm64-<version>.tar.gz` and `aioz-ai-cli-darwin-x86_64-<version>.tar.gz`.
+### macOS
+
+Two archives, one per chip. Pick with `uname -m` (`arm64` = Apple Silicon, `x86_64` = Intel). Or:
+
+```bash
+curl -fsSL https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/install.sh | bash
+```
+
+Apple Silicon:
+
+```bash
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-darwin-arm64-0.19.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.19.tar.gz
+mv aioz-ai-cli-darwin-arm64 ai-cli
+xattr -dr com.apple.quarantine ./ai-cli
+./ai-cli version
+```
+
+Intel:
+
+```bash
+curl -LO https://github.com/DiseAgon/aioz-ai-cli-demo/releases/latest/download/aioz-ai-cli-darwin-amd64-0.19.tar.gz
+tar -xzf aioz-ai-cli-darwin-amd64-0.19.tar.gz
+mv aioz-ai-cli-darwin-amd64 ai-cli
+xattr -dr com.apple.quarantine ./ai-cli
+./ai-cli version
+```
+
+Do not use the Intel archive on Apple Silicon. Data lives under `~/Library/Application Support/AIOZ/ai-cli/`, cache `~/Library/Caches/AIOZ/ai-cli`, logs `~/Library/Logs/AIOZ/ai-cli`.
 
 **Note:** On Windows PowerShell, type `.\ai-cli.exe` (the `.\` is required; `ai-cli.exe` alone is not found). On Linux and macOS use `./ai-cli`.
 
@@ -63,8 +88,8 @@ Response:
 ```
 ╭─ ai-cli ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Version           0.18                                              │
-│  Commit            v0.18.0-demo                                      │
+│  Version           0.19                                              │
+│  Commit            v0.19.0-demo                                      │
 │  Built             2026-01-01T00:00:00Z                              │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
@@ -80,7 +105,7 @@ For Windows
 .\ai-cli.exe keytool new --save-priv-key privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli keytool new --save-priv-key privkey.json
@@ -118,7 +143,7 @@ For Windows
 .\ai-cli.exe storage limit 10 --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli storage limit 10 --priv-key-file privkey.json
@@ -146,7 +171,7 @@ For Windows
 .\ai-cli.exe start --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli start --priv-key-file privkey.json
@@ -160,7 +185,7 @@ Response:
 ╭─ node ───────────────────────────────────────────────────────────────╮
 │                                                                      │
 │  Status            running                                           │
-│  CLI               0.18                                              │
+│  CLI               0.19                                              │
 │  Update            CLI is up to date                                 │
 │  PID               12345                                             │
 │  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
@@ -174,7 +199,7 @@ Response:
 INFO  node running; Ctrl+C to stop
 ```
 
-Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/` or Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>\`. The wallet label is `identity/address` (next to the pid file), not the folder name.
+Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/`, Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>/`, or macOS `~/Library/Application Support/AIOZ/ai-cli/home`. The wallet label is `identity/address` (next to the pid file), not the folder name.
 
 ## Usage
 
@@ -186,7 +211,7 @@ For Windows
 .\ai-cli.exe status --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli status --priv-key-file privkey.json
@@ -210,7 +235,7 @@ For Windows
 .\ai-cli.exe status --all
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli status --all
@@ -226,7 +251,7 @@ For Windows
 .\ai-cli.exe storage show --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli storage show --priv-key-file privkey.json
@@ -253,7 +278,7 @@ For Windows
 .\ai-cli.exe reward balance --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli reward balance --priv-key-file privkey.json
@@ -281,7 +306,7 @@ For Windows
 .\ai-cli.exe reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
@@ -309,7 +334,7 @@ For Windows
 .\ai-cli.exe keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
@@ -336,7 +361,7 @@ For Windows
 .\ai-cli.exe update
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli update
@@ -356,7 +381,7 @@ For Windows
 .\ai-cli.exe stats --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli stats --priv-key-file privkey.json
@@ -379,7 +404,7 @@ For Windows
 .\ai-cli.exe logs --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli logs --priv-key-file privkey.json
@@ -395,7 +420,7 @@ For Windows
 .\ai-cli.exe doctor --priv-key-file privkey.json
 ```
 
-For Linux
+For Linux and macOS
 
 ```bash
 ./ai-cli doctor --priv-key-file privkey.json
