@@ -314,8 +314,8 @@ Response:
 ```
 ╭─ reward ─────────────────────────────────────────────────────────────╮
 │                                                                      │
-│  Spendable         2.5 AIOZ                                          │
-│  Earned            2.5 AIOZ                                          │
+│  Spendable         2.5 HOST                                          │
+│  Earned            2.5 HOST                                          │
 │  Count             10                                                │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
@@ -338,7 +338,7 @@ For Linux and macOS
 Without `--yes` the CLI asks:
 
 ```
-Withdraw 0.01 AIOZ (10000000000000000 attoaioz) to MetaMask 0xAbc0…def1? [y/N]
+Withdraw 0.01 HOST (10000000000000000 attohost) to MetaMask 0xAbc0…def1? [y/N]
 ```
 
 Response:
@@ -348,12 +348,12 @@ Response:
 │                                                                      │
 │  Tx                6c3fb8ab-fda6-408c-8dbe-34f3190ce837              │
 │  To MetaMask       0xAbc0…def1                                       │
-│  Amount            0.01 AIOZ                                         │
+│  Amount            0.01 HOST                                         │
 │                                                                      │
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
 
-**Note:** `--address` is a MetaMask `0x`. `--amount` is in AIOZ. Minimum withdraw is **0.01 AIOZ**. `--yes` skips the confirm prompt.
+**Note:** `--address` is a MetaMask `0x`. `--amount` is in HOST. Minimum withdraw is **0.01 HOST**. `--yes` skips the confirm prompt.
 
 ### Recover private key from mnemonic phrase
 
