@@ -31,8 +31,8 @@ Or download the zip:
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.24.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.24.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.25.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.25.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 .\ai-cli.exe version
 ```
@@ -48,8 +48,8 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 Or the archive:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.24.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.24.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.25.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.25.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ./ai-cli version
 ```
@@ -64,28 +64,28 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.24.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.24.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.25.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.25.tar.gz` | `aioz-ai-cli-darwin-amd64` |
 
 Apple Silicon:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.24.tar.gz
-tar -xzf aioz-ai-cli-darwin-arm64-0.24.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.25.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.25.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Intel: same steps with `aioz-ai-cli-darwin-amd64-0.24.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
+Intel: same steps with `aioz-ai-cli-darwin-amd64-0.25.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
 
 `version` (keys sorted):
 
 ```json
 {
   "built": "2026-09-11T04:38:44Z",
-  "commit": "v0.24.0-demo",
-  "version": "0.24"
+  "commit": "v0.25.0-demo",
+  "version": "0.25"
 }
 ```
 
@@ -145,7 +145,11 @@ Without `--home`, this wallet gets a UUID folder under:
 ./ai-cli start --priv-key-file privkey.json
 ```
 
-`--priv-key-file` is required. `start` **prints one JSON object, then stays in the foreground**. It does **not** stream logs to stdout. Runtime logs go to `log_path`. The process waits until you press **Ctrl+C** (stops **this wallet only**) or the node exits.
+`--priv-key-file` is required. `start` **prints one JSON object, then stays in the foreground**. It does **not** stream logs to stdout. Runtime logs go to `log_path`. The process waits until you press **Ctrl+C** (stops **this wallet only**) or the node exits. Stream logs on stderr with `--follow` (stdout stays JSON):
+
+```bash
+./ai-cli start --priv-key-file privkey.json --follow
+```
 
 ```json
 {
@@ -160,10 +164,10 @@ Without `--home`, this wallet gets a UUID folder under:
   "update": {
     "skipped": false,
     "newer": false,
-    "current": "0.24",
-    "current_commit": "v0.24.0-demo",
-    "remote": "0.24",
-    "remote_commit": "v0.24.0-demo",
+    "current": "0.25",
+    "current_commit": "v0.25.0-demo",
+    "remote": "0.25",
+    "remote_commit": "v0.25.0-demo",
     "note": "CLI is up to date"
   }
 }
@@ -308,10 +312,10 @@ Do not pass the mnemonic on the command line (shell history / process list). Put
 {
   "skipped": false,
   "newer": false,
-  "current": "0.24",
-  "current_commit": "v0.24.0-demo",
-  "remote": "0.24",
-  "remote_commit": "v0.24.0-demo",
+  "current": "0.25",
+  "current_commit": "v0.25.0-demo",
+  "remote": "0.25",
+  "remote_commit": "v0.25.0-demo",
   "note": "CLI is up to date"
 }
 ```
