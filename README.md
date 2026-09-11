@@ -1,8 +1,8 @@
-## AIOZ AI CLI
+## Host CLI
 
-Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64) demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
+Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64) demo of Host CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
-`ai-cli` runs an AIOZ AI node on your machine, takes AI tasks, and earns AIOZ rewards. The node runtime and keytool are **bundled inside the binary** and extracted on first use.
+`ai-cli` runs a node on your machine, takes AI tasks, and earns HOST rewards. The node runtime and keytool are **bundled inside the binary** and extracted on first use.
 
 ## Requirements
 
@@ -103,7 +103,7 @@ Windows: `.\ai-cli.exe keytool new --save-priv-key privkey.json`.
 
 ```json
 {
-  "address": "aioz1…",
+  "address": "…",
   "address_evm": "0xAbc0…def1",
   "mnemonic": "twelve words …",
   "priv_key_file": "privkey.json"
@@ -256,21 +256,21 @@ Works with the node off.
 {
   "earned": {
     "amount": "0",
-    "denom": "attoaioz",
-    "aioz": "0"
+    "denom": "attohost",
+    "host": "0"
   },
   "earned_count": 0,
   "spendable": {
     "amount": "0",
-    "denom": "attoaioz",
-    "aioz": "0"
+    "denom": "attohost",
+    "host": "0"
   }
 }
 ```
 
 ### Withdraw
 
-`--address` is a MetaMask `0x` on AIOZ Chain. `--amount` is in AIOZ. Minimum **0.01 AIOZ**. `--yes` skips the confirm prompt.
+`--address` is a MetaMask `0x` on HOST Chain. `--amount` is in HOST. Minimum **0.01 HOST**. `--yes` skips the confirm prompt.
 
 ```bash
 ./ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
@@ -292,7 +292,7 @@ Do not pass the mnemonic on the command line (shell history / process list). Put
 
 ```json
 {
-  "address": "aioz1…",
+  "address": "…",
   "address_evm": "0xAbc0…def1",
   "priv_key_file": "privkey.json"
 }
