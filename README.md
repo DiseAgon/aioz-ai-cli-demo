@@ -1,10 +1,10 @@
-# Host CLI
+## AIOZ AI CLI
 
-Linux amd64, Windows amd64, and macOS (Intel + Apple Silicon) demo of **Host CLI** (`ai-cli`). This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
+Linux amd64, Windows amd64, and (when published) macOS Intel + Apple Silicon demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
-## What is Host CLI?
+## What is AIOZ AI CLI?
 
-Host CLI (`ai-cli`) is a command-line application that runs a node on your machine, takes tasks, and earns rewards.
+AIOZ AI CLI (`ai-cli`) is a command-line application that runs an AIOZ AI node on your machine, takes AI tasks, and earns AIOZ rewards.
 
 The node runtime and keytool are **bundled inside the binary** and extracted on first use.
 
@@ -12,27 +12,21 @@ The node runtime and keytool are **bundled inside the binary** and extracted on 
 
 - Windows 10 64-bit (amd64) or later
 - Ubuntu 20.04 64-bit (amd64) or later
-- macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64)
+- macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64) — archives not published in this demo yet
 
 ## Install
 
 ### Windows
 
-Download and extract the latest Host CLI. The scripts below are written for Windows PowerShell.
+Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
 
 Work in **your** profile folder (not another user's `C:\Users\...`). PowerShell as that user, not Administrator:
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.22.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.22.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.23.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.23.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
-```
-
-Or run the installer:
-
-```powershell
-irm https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.ps1 | iex
 ```
 
 Verify the installation:
@@ -46,16 +40,9 @@ Verify the installation:
 ### Linux
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.22.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.22.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.23.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.23.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
-```
-
-Or:
-
-```bash
-curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.sh | bash
-source ~/.bashrc
 ```
 
 Verify the installation:
@@ -64,20 +51,21 @@ Verify the installation:
 ./ai-cli version
 ```
 
-### macOS
+### macOS (not published yet)
 
 Two archives, one per chip. Pick with `uname -m`:
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.22.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.22.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-<version>.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-<version>.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+
+Those files are **not** on GitHub yet. When they are published:
 
 Apple Silicon:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.22.tar.gz
-tar -xzf aioz-ai-cli-darwin-arm64-0.22.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-<version>.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
@@ -86,27 +74,24 @@ xattr -dr com.apple.quarantine ./ai-cli
 Intel:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-amd64-0.22.tar.gz
-tar -xzf aioz-ai-cli-darwin-amd64-0.22.tar.gz
+tar -xzf aioz-ai-cli-darwin-amd64-<version>.tar.gz
 mv aioz-ai-cli-darwin-amd64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Or use `install.sh` (picks the archive for this machine). Do not use the Intel archive on Apple Silicon. Data lives under `~/Library/Application Support/AIOZ/ai-cli/`, cache `~/Library/Caches/AIOZ/ai-cli`, logs `~/Library/Logs/AIOZ/ai-cli`.
+Do not use the Intel archive on Apple Silicon. Data lives under `~/Library/Application Support/AIOZ/ai-cli/`, cache `~/Library/Caches/AIOZ/ai-cli`, logs `~/Library/Logs/AIOZ/ai-cli`.
 
 **Note:** On Windows PowerShell, type `.\ai-cli.exe` (the `.\` is required; `ai-cli.exe` alone is not found). On Linux and macOS use `./ai-cli`.
 
-Response:
+Command stdout is indented JSON (no `--json` flag). Help stays human.
 
-```
-╭─ ai-cli ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Version           0.22                                              │
-│  Commit            v0.22.0-demo                                      │
-│  Built             2026-01-01T00:00:00Z                              │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "version": "0.23",
+  "commit": "v0.23.0-demo",
+  "built": "2026-09-11T00:00:00Z"
+}
 ```
 
 ## Getting started
@@ -127,18 +112,12 @@ For Linux and macOS
 
 `--save-priv-key` writes the private key JSON (mode `0600`). Store the mnemonic now; it is not shown again. This does not create a data folder.
 
-Response:
-
-```
-╭─ keytool ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Node ETH          0xAbc0…def1                                       │
-│  Mnemonic          … twelve words …                                  │
-│                                                                      │
-│  ⚠                 saved privkey.json                                │
-│                    (store the mnemonic now; it is not shown again)   │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "address_evm": "0xAbc0…def1",
+  "mnemonic": "… twelve words …",
+  "priv_key_file": "privkey.json"
+}
 ```
 
 **IMPORTANT**
@@ -163,20 +142,18 @@ For Linux and macOS
 ./ai-cli storage limit 10 --priv-key-file privkey.json
 ```
 
-Response:
-
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "limit_gb": 10,
+  "limit_bytes": 10000000000,
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
+  "storage_dir": "~/.local/share/aioz/ai-nodes/<uuid>/"
+}
 ```
 
 Run the same command again later to raise the cap. It is applied on the next `start`.
 
-## Start the node
+## Start ai-node
 
 For Windows
 
@@ -190,30 +167,25 @@ For Linux and macOS
 ./ai-cli start --priv-key-file privkey.json
 ```
 
-`--priv-key-file` is required. Ctrl+C stops **this wallet only**. There is no `stop` command.
+`--priv-key-file` is required. Ctrl+C stops **this wallet only**.
 
-Response:
+Stdout stays JSON (logs are not streamed). Ctrl+C still stops this wallet. Read logs with `ai-cli logs --priv-key-file privkey.json`.
 
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Status            running                                           │
-│  CLI               0.22                                              │
-│  PID               12345                                             │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Storage           10 GB                                             │
-│  ETH               0xAbc0…def1                                       │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "running": true,
+  "pid": 12345,
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
+  "evm_address": "0xAbc0…def1",
+  "storage_bytes": 10000000000
+}
 ```
 
-Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/`, Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>/`, or macOS `~/Library/Application Support/AIOZ/ai-cli/`. The wallet label is `identity/address` (next to the pid file), not the folder name.
+Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/`, Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>/`, or macOS `~/Library/Application Support/AIOZ/ai-cli/home`. The wallet label is `identity/address` (next to the pid file), not the folder name.
 
 ## Usage
 
 ### Node status
-
-Shows whether this wallet's node is running, plus its home and ETH address.
 
 For Windows
 
@@ -227,16 +199,12 @@ For Linux and macOS
 ./ai-cli status --priv-key-file privkey.json
 ```
 
-Response:
-
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Status            stopped                                           │
-│  ETH               0xAbc0…def1                                       │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
+  "running": false,
+  "evm_address": "0xAbc0…def1"
+}
 ```
 
 For Windows
@@ -255,8 +223,6 @@ Lists every home on this machine. Does not need `--priv-key-file`.
 
 ### Show storage
 
-Shows the storage cap and how much is used. Used is **0** until the node has started.
-
 For Windows
 
 ```powershell
@@ -269,26 +235,13 @@ For Linux and macOS
 ./ai-cli storage show --priv-key-file privkey.json
 ```
 
-Response (before `start`):
-
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Used              0 B                                               │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
-```
-
-Response (after `start`):
-
-```
-╭─ storage ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Limit             10 GB                                             │
-│  Used              1.2 GB                                            │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "storage_limit": "10000000000",
+  "storage_used": "1200000000",
+  "near_full": false,
+  "error": null
+}
 ```
 
 Warns when used is at least 90% of the cap.
@@ -309,16 +262,12 @@ For Linux and macOS
 
 Works with the node off.
 
-Response:
-
-```
-╭─ reward ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Spendable         2.5 HOST                                          │
-│  Earned            2.5 HOST                                          │
-│  Count             10                                                │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "spendable": {"amount": "2500000000000000000", "denom": "attoaioz", "aioz": "2.5"},
+  "earned": {"amount": "2500000000000000000", "denom": "attoaioz", "aioz": "2.5"},
+  "earned_count": 10
+}
 ```
 
 ### Withdraw reward
@@ -326,38 +275,26 @@ Response:
 For Windows
 
 ```powershell
-.\ai-cli.exe reward withdraw --address 0xAbc0…def1 --amount 0.01 --priv-key-file privkey.json
+.\ai-cli.exe reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
 ```
 
 For Linux and macOS
 
 ```bash
-./ai-cli reward withdraw --address 0xAbc0…def1 --amount 0.01 --priv-key-file privkey.json
+./ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
 ```
 
-Without `--yes` the CLI asks:
-
-```
-Withdraw 0.01 HOST (10000000000000000 attohost) to MetaMask 0xAbc0…def1? [y/N]
-```
-
-Response:
-
-```
-╭─ withdraw ───────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Tx                6c3fb8ab-fda6-408c-8dbe-34f3190ce837              │
-│  To MetaMask       0xAbc0…def1                                       │
-│  Amount            0.01 HOST                                         │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "txid": "2604F553…944D59"
+}
 ```
 
-**Note:** `--address` is a MetaMask `0x`. `--amount` is in HOST. Minimum withdraw is **0.01 HOST**. `--yes` skips the confirm prompt.
+**Note:** `--address` is a MetaMask `0x` on AIOZ Chain. `--amount` is in AIOZ. Minimum withdraw is **0.01 AIOZ**. `--yes` skips the confirm prompt.
 
 ### Recover private key from mnemonic phrase
 
-The CLI does not take the mnemonic as a command argument (it would leak in shell history and the process list). Put the words in a file, then:
+The sidecar does not take the mnemonic as a command argument (it would leak in shell history and the process list). Put the words in a file, then:
 
 For Windows
 
@@ -371,17 +308,11 @@ For Linux and macOS
 ./ai-cli keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
 ```
 
-Response:
-
-```
-╭─ keytool ────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Node ETH          0xAbc0…def1                                       │
-│                                                                      │
-│  ⚠                 saved privkey.json                                │
-│                    (store the mnemonic now; it is not shown again)   │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "address_evm": "0xAbc0…def1",
+  "priv_key_file": "privkey.json"
+}
 ```
 
 ### Update
@@ -398,13 +329,14 @@ For Linux and macOS
 ./ai-cli update
 ```
 
-Response:
-
+```json
+{
+  "skipped": false,
+  "newer": false,
+  "current": "0.23",
+  "note": "CLI is up to date"
+}
 ```
-CLI is up to date
-```
-
-Builds before **0.19** cannot self-update (they look for a bare `ai-cli` asset). Install **0.19 or later** once, then `update` works.
 
 ### Stats / Logs
 
@@ -420,17 +352,12 @@ For Linux and macOS
 ./ai-cli stats --priv-key-file privkey.json
 ```
 
-**Status** is the string the node returns (for example `Coming soon` or `Standby`).
-
-Response:
-
-```
-╭─ node ───────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Status            Coming soon                                       │
-│  Wallet            0xAbc0…def1                                       │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "status": "Offline",
+  "wallet_address": "0xAbc0…def1",
+  "error": null
+}
 ```
 
 For Windows
@@ -461,20 +388,11 @@ For Linux and macOS
 ./ai-cli doctor --priv-key-file privkey.json
 ```
 
-Response:
-
-```
-╭─ doctor ─────────────────────────────────────────────────────────────╮
-│                                                                      │
-│  Overall           ok                                                │
-│  Os                linux/amd64                                       │
-│  Home              ~/.local/share/aioz/ai-nodes/<uuid>/              │
-│  Disk              100 GB free                                       │
-│  Runtime           ok                                                │
-│  Wallet            0xAbc0…def1                                       │
-│  Log               ~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log     │
-│  Identity          credential is --priv-key-file                     │
-│  Gpu               NVIDIA, 8 GB                                      │
-│                                                                      │
-╰──────────────────────────────────────────────────────────────────────╯
+```json
+{
+  "ok": true,
+  "checks": [
+    {"name": "os", "ok": true, "detail": "linux/amd64"}
+  ]
+}
 ```
