@@ -12,7 +12,7 @@ Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64)
 
 ## Output
 
-Default output is a **human card**. Pass `--json` for indented JSON. **Help is human.** Failures print a text line on **stderr**.
+Commands print **indented JSON** (`version`, `storage`, `reward`, `status`, `logs`, …). **`start` is the exception:** it prints a human card and streams logs. Pass `--json` only for `start` if you want JSON. **Help is human.** Failures print a text line on **stderr**.
 
 Windows PowerShell: type `.\ai-cli.exe` (the `.\` is required). Linux and macOS: `./ai-cli` or `ai-cli` if it is on `PATH`.
 
@@ -31,8 +31,8 @@ Or download the zip:
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.26.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.26.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.27.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.27.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 .\ai-cli.exe version
 ```
@@ -48,8 +48,8 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 Or the archive:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.26.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.26.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.27.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.27.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ./ai-cli version
 ```
@@ -64,28 +64,28 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.26.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.26.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.27.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.27.tar.gz` | `aioz-ai-cli-darwin-amd64` |
 
 Apple Silicon:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.26.tar.gz
-tar -xzf aioz-ai-cli-darwin-arm64-0.26.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.27.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.27.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Intel: same steps with `aioz-ai-cli-darwin-amd64-0.26.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
+Intel: same steps with `aioz-ai-cli-darwin-amd64-0.27.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
 
-`ai-cli --json version` (keys sorted):
+`version` (keys sorted):
 
 ```json
 {
-  "built": "2026-09-11T09:09:48Z",
-  "commit": "v0.26.0-demo",
-  "version": "0.26"
+  "built": "2026-09-11T09:41:12Z",
+  "commit": "v0.27.0-demo",
+  "version": "0.27"
 }
 ```
 
@@ -143,7 +143,7 @@ Without `--home`, this wallet gets a UUID folder under:
 ./ai-cli start --priv-key-file privkey.json
 ```
 
-`--priv-key-file` is required. Default `start` prints a **card**, then **streams logs**. Ctrl+C stops **this wallet**. JSON:
+`--priv-key-file` is required. Default `start` prints a **card**, then **streams logs**. Ctrl+C stops **this wallet**. Other commands stay JSON. For JSON start:
 
 ```bash
 ./ai-cli --json start --priv-key-file privkey.json
@@ -164,10 +164,10 @@ Without `--home`, this wallet gets a UUID folder under:
   "update": {
     "skipped": false,
     "newer": false,
-    "current": "0.26",
-    "current_commit": "v0.26.0-demo",
-    "remote": "0.26",
-    "remote_commit": "v0.26.0-demo",
+    "current": "0.27",
+    "current_commit": "v0.27.0-demo",
+    "remote": "0.27",
+    "remote_commit": "v0.27.0-demo",
     "note": "CLI is up to date"
   }
 }
@@ -313,10 +313,10 @@ Do not pass the mnemonic on the command line (shell history / process list). Put
 {
   "skipped": false,
   "newer": false,
-  "current": "0.26",
-  "current_commit": "v0.26.0-demo",
-  "remote": "0.26",
-  "remote_commit": "v0.26.0-demo",
+  "current": "0.27",
+  "current_commit": "v0.27.0-demo",
+  "remote": "0.27",
+  "remote_commit": "v0.27.0-demo",
   "note": "CLI is up to date"
 }
 ```
