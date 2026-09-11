@@ -1,6 +1,6 @@
 ## AIOZ AI CLI
 
-Linux amd64, Windows amd64, and (when published) macOS Intel + Apple Silicon demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
+Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64) demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
 ## What is AIOZ AI CLI?
 
@@ -12,7 +12,7 @@ The node runtime and keytool are **bundled inside the binary** and extracted on 
 
 - Windows 10 64-bit (amd64) or later
 - Ubuntu 20.04 64-bit (amd64) or later
-- macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64) — archives not published in this demo yet
+- macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64)
 
 ## Install
 
@@ -24,8 +24,8 @@ Work in **your** profile folder (not another user's `C:\Users\...`). PowerShell 
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.23.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.23.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.24.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.24.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 ```
 
@@ -40,8 +40,14 @@ Verify the installation:
 ### Linux
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.23.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.23.tar.gz
+curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.sh | bash
+```
+
+Or download the archive:
+
+```bash
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.24.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.24.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ```
 
@@ -51,21 +57,26 @@ Verify the installation:
 ./ai-cli version
 ```
 
-### macOS (not published yet)
+### macOS
 
-Two archives, one per chip. Pick with `uname -m`:
+`install.sh` picks Apple Silicon vs Intel from `uname -m`:
+
+```bash
+curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.sh | bash
+```
+
+Or download the matching archive:
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-<version>.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-<version>.tar.gz` | `aioz-ai-cli-darwin-amd64` |
-
-Those files are **not** on GitHub yet. When they are published:
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.24.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.24.tar.gz` | `aioz-ai-cli-darwin-amd64` |
 
 Apple Silicon:
 
 ```bash
-tar -xzf aioz-ai-cli-darwin-arm64-<version>.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.24.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.24.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
@@ -74,7 +85,8 @@ xattr -dr com.apple.quarantine ./ai-cli
 Intel:
 
 ```bash
-tar -xzf aioz-ai-cli-darwin-amd64-<version>.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-amd64-0.24.tar.gz
+tar -xzf aioz-ai-cli-darwin-amd64-0.24.tar.gz
 mv aioz-ai-cli-darwin-amd64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
@@ -88,8 +100,8 @@ Command stdout is indented JSON (no `--json` flag). Help stays human.
 
 ```json
 {
-  "version": "0.23",
-  "commit": "v0.23.0-demo",
+  "version": "0.24",
+  "commit": "v0.24.0-demo",
   "built": "2026-09-11T00:00:00Z"
 }
 ```
@@ -333,7 +345,7 @@ For Linux and macOS
 {
   "skipped": false,
   "newer": false,
-  "current": "0.23",
+  "current": "0.24",
   "note": "CLI is up to date"
 }
 ```
