@@ -12,7 +12,7 @@ Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64)
 
 ## Output
 
-Command **stdout is indented JSON**. There is no `--json` flag. **Help is human.** Failures print a text line on **stderr** (not JSON).
+Default output is a **human card**. Pass `--json` for indented JSON. **Help is human.** Failures print a text line on **stderr**.
 
 Windows PowerShell: type `.\ai-cli.exe` (the `.\` is required). Linux and macOS: `./ai-cli` or `ai-cli` if it is on `PATH`.
 
@@ -31,8 +31,8 @@ Or download the zip:
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.25.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.25.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.26.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.26.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 .\ai-cli.exe version
 ```
@@ -48,8 +48,8 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 Or the archive:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.25.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.25.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.26.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.26.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ./ai-cli version
 ```
@@ -64,28 +64,28 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.25.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.25.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.26.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.26.tar.gz` | `aioz-ai-cli-darwin-amd64` |
 
 Apple Silicon:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.25.tar.gz
-tar -xzf aioz-ai-cli-darwin-arm64-0.25.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.26.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.26.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Intel: same steps with `aioz-ai-cli-darwin-amd64-0.25.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
+Intel: same steps with `aioz-ai-cli-darwin-amd64-0.26.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
 
-`version` (keys sorted):
+`ai-cli --json version` (keys sorted):
 
 ```json
 {
-  "built": "2026-09-11T04:38:44Z",
-  "commit": "v0.25.0-demo",
-  "version": "0.25"
+  "built": "2026-09-11T09:09:48Z",
+  "commit": "v0.26.0-demo",
+  "version": "0.26"
 }
 ```
 
@@ -122,14 +122,12 @@ Required **before** `start`. The value must be **greater than 2 GB**. There is n
 
 ```json
 {
-  "home": "~/.local/share/aioz/ai-nodes/<uuid>",
-  "limit_bytes": 10000000000,
-  "limit_gb": 10,
-  "storage_dir": "~/.local/share/aioz/ai-nodes/<uuid>"
+  "error": null,
+  "success": true
 }
 ```
 
-`limit_bytes` is decimal GB (`10` → `10000000000`). Raise the cap by running the same command again; it applies on the next `start`.
+`N` is decimal GB (`10` → `10000000000` bytes on Linux). Raise the cap by running the same command again; it applies on the next `start`.
 
 Without `--home`, this wallet gets a UUID folder under:
 
@@ -145,11 +143,13 @@ Without `--home`, this wallet gets a UUID folder under:
 ./ai-cli start --priv-key-file privkey.json
 ```
 
-`--priv-key-file` is required. `start` **prints one JSON object, then stays in the foreground**. It does **not** stream logs to stdout. Runtime logs go to `log_path`. The process waits until you press **Ctrl+C** (stops **this wallet only**) or the node exits. Stream logs on stderr with `--follow` (stdout stays JSON):
+`--priv-key-file` is required. Default `start` prints a **card**, then **streams logs**. Ctrl+C stops **this wallet**. JSON:
 
 ```bash
-./ai-cli start --priv-key-file privkey.json --follow
+./ai-cli --json start --priv-key-file privkey.json
 ```
+
+`--json` prints one JSON object and does **not** stream logs. `--follow` with `--json` streams logs to **stderr**.
 
 ```json
 {
@@ -164,16 +164,16 @@ Without `--home`, this wallet gets a UUID folder under:
   "update": {
     "skipped": false,
     "newer": false,
-    "current": "0.25",
-    "current_commit": "v0.25.0-demo",
-    "remote": "0.25",
-    "remote_commit": "v0.25.0-demo",
+    "current": "0.26",
+    "current_commit": "v0.26.0-demo",
+    "remote": "0.26",
+    "remote_commit": "v0.26.0-demo",
     "note": "CLI is up to date"
   }
 }
 ```
 
-Ctrl+C then prints a **second** JSON object. `running` here is a **count** of other node processes still live (not a boolean):
+Ctrl+C then prints a **second** JSON object (`--json`). `running` here is a **count** of other node processes still live (not a boolean):
 
 ```json
 {
@@ -221,13 +221,12 @@ Log paths:
 ```json
 {
   "error": null,
-  "near_full": false,
   "storage_limit": "10000000000",
   "storage_used": "0"
 }
 ```
 
-`storage_limit` / `storage_used` are **byte strings**. `near_full` is true at ≥ 90% of the cap.
+`storage_limit` / `storage_used` are **byte strings**.
 
 ### Logs
 
@@ -264,6 +263,7 @@ Works with the node off.
     "host": "0"
   },
   "earned_count": 0,
+  "error": null,
   "spendable": {
     "amount": "0",
     "denom": "attohost",
@@ -282,6 +282,7 @@ Works with the node off.
 
 ```json
 {
+  "error": null,
   "txid": "2604F553…944D59"
 }
 ```
@@ -312,10 +313,10 @@ Do not pass the mnemonic on the command line (shell history / process list). Put
 {
   "skipped": false,
   "newer": false,
-  "current": "0.25",
-  "current_commit": "v0.25.0-demo",
-  "remote": "0.25",
-  "remote_commit": "v0.25.0-demo",
+  "current": "0.26",
+  "current_commit": "v0.26.0-demo",
+  "remote": "0.26",
+  "remote_commit": "v0.26.0-demo",
   "note": "CLI is up to date"
 }
 ```
