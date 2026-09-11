@@ -2,11 +2,7 @@
 
 Linux amd64, Windows amd64, macOS Apple Silicon (arm64), and macOS Intel (amd64) demo of the AIOZ AI operator CLI. This GitHub repository is **download + version-check only**. It is not the source tree. Only the **latest** release is kept.
 
-## What is AIOZ AI CLI?
-
-AIOZ AI CLI (`ai-cli`) is a command-line application that runs an AIOZ AI node on your machine, takes AI tasks, and earns AIOZ rewards.
-
-The node runtime and keytool are **bundled inside the binary** and extracted on first use.
+`ai-cli` runs an AIOZ AI node on your machine, takes AI tasks, and earns AIOZ rewards. The node runtime and keytool are **bundled inside the binary** and extracted on first use.
 
 ## Requirements
 
@@ -14,24 +10,30 @@ The node runtime and keytool are **bundled inside the binary** and extracted on 
 - Ubuntu 20.04 64-bit (amd64) or later
 - macOS 12+ 64-bit, Apple Silicon (arm64) or Intel (amd64)
 
+## Output
+
+Command **stdout is indented JSON**. There is no `--json` flag. **Help is human.** Failures print a text line on **stderr** (not JSON).
+
+Windows PowerShell: type `.\ai-cli.exe` (the `.\` is required). Linux and macOS: `./ai-cli` or `ai-cli` if it is on `PATH`.
+
 ## Install
 
 ### Windows
 
-Download and extract the latest AIOZ AI CLI. The scripts below are written for Windows PowerShell.
+Work in **your** profile folder. PowerShell as that user, not Administrator:
 
-Work in **your** profile folder (not another user's `C:\Users\...`). PowerShell as that user, not Administrator:
+```powershell
+cd $env:USERPROFILE
+irm https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.ps1 | iex
+```
+
+Or download the zip:
 
 ```powershell
 cd $env:USERPROFILE
 curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.24.zip
 Expand-Archive -Path aioz-ai-cli-windows-amd64-0.24.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
-```
-
-Verify the installation:
-
-```powershell
 .\ai-cli.exe version
 ```
 
@@ -43,17 +45,12 @@ Verify the installation:
 curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.sh | bash
 ```
 
-Or download the archive:
+Or the archive:
 
 ```bash
 curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.24.tar.gz
 tar -xzf aioz-ai-cli-linux-amd64-0.24.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
-```
-
-Verify the installation:
-
-```bash
 ./ai-cli version
 ```
 
@@ -64,8 +61,6 @@ Verify the installation:
 ```bash
 curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/install.sh | bash
 ```
-
-Or download the matching archive:
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
@@ -82,73 +77,44 @@ xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Intel:
+Intel: same steps with `aioz-ai-cli-darwin-amd64-0.24.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
 
-```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-amd64-0.24.tar.gz
-tar -xzf aioz-ai-cli-darwin-amd64-0.24.tar.gz
-mv aioz-ai-cli-darwin-amd64 ai-cli
-xattr -dr com.apple.quarantine ./ai-cli
-./ai-cli version
-```
-
-Do not use the Intel archive on Apple Silicon. Data lives under `~/Library/Application Support/AIOZ/ai-cli/`, cache `~/Library/Caches/AIOZ/ai-cli`, logs `~/Library/Logs/AIOZ/ai-cli`.
-
-**Note:** On Windows PowerShell, type `.\ai-cli.exe` (the `.\` is required; `ai-cli.exe` alone is not found). On Linux and macOS use `./ai-cli`.
-
-Command stdout is indented JSON (no `--json` flag). Help stays human.
+`version` (keys sorted):
 
 ```json
 {
-  "version": "0.24",
+  "built": "2026-09-11T04:38:44Z",
   "commit": "v0.24.0-demo",
-  "built": "2026-09-11T00:00:00Z"
+  "version": "0.24"
 }
 ```
 
 ## Getting started
 
-### Create wallet_address, private key
-
-For Windows
-
-```powershell
-.\ai-cli.exe keytool new --save-priv-key privkey.json
-```
-
-For Linux and macOS
+### Create a key
 
 ```bash
 ./ai-cli keytool new --save-priv-key privkey.json
 ```
 
+Windows: `.\ai-cli.exe keytool new --save-priv-key privkey.json`.
+
 `--save-priv-key` writes the private key JSON (mode `0600`). Store the mnemonic now; it is not shown again. This does not create a data folder.
 
 ```json
 {
+  "address": "aioz1…",
   "address_evm": "0xAbc0…def1",
-  "mnemonic": "… twelve words …",
+  "mnemonic": "twelve words …",
   "priv_key_file": "privkey.json"
 }
 ```
 
-**IMPORTANT**
+Treat `privkey.json` and the mnemonic as **wallet secrets**. Use a **dedicated key for each node**. Keep an offline backup. Never paste them into websites, chats, or support tickets.
 
-- Treat `privkey.json` and the mnemonic as **wallet secrets**. Anyone who has them can control this node's rewards.
-- Use a **dedicated key for each node**. Do not reuse a main wallet, exchange key, or another node's key.
-- Keep an offline backup. **Never paste** the mnemonic or private key into websites, chats, or support tickets.
+### Set storage limit
 
-## Set storage limit
-
-This step is **required before `start`**. The value must be **greater than 2 GB**. There is no 2 GB default. `start` fails if the cap is missing.
-
-For Windows
-
-```powershell
-.\ai-cli.exe storage limit 10 --priv-key-file privkey.json
-```
-
-For Linux and macOS
+Required **before** `start`. The value must be **greater than 2 GB**. There is no 2 GB default. Bare `storage` prints help; use `storage limit` / `storage show`.
 
 ```bash
 ./ai-cli storage limit 10 --priv-key-file privkey.json
@@ -156,56 +122,75 @@ For Linux and macOS
 
 ```json
 {
-  "limit_gb": 10,
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>",
   "limit_bytes": 10000000000,
-  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
-  "storage_dir": "~/.local/share/aioz/ai-nodes/<uuid>/"
+  "limit_gb": 10,
+  "storage_dir": "~/.local/share/aioz/ai-nodes/<uuid>"
 }
 ```
 
-Run the same command again later to raise the cap. It is applied on the next `start`.
+`limit_bytes` is decimal GB (`10` → `10000000000`). Raise the cap by running the same command again; it applies on the next `start`.
 
-## Start ai-node
+Without `--home`, this wallet gets a UUID folder under:
 
-For Windows
+| OS | Home |
+|----|------|
+| Linux | `~/.local/share/aioz/ai-nodes/<uuid>/` |
+| Windows | `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>\` |
+| macOS | `~/Library/Application Support/AIOZ/ai-cli/ai-nodes/<uuid>/` |
 
-```powershell
-.\ai-cli.exe start --priv-key-file privkey.json
-```
-
-For Linux and macOS
+### Start
 
 ```bash
 ./ai-cli start --priv-key-file privkey.json
 ```
 
-`--priv-key-file` is required. Ctrl+C stops **this wallet only**.
-
-Stdout stays JSON (logs are not streamed). Ctrl+C still stops this wallet. Read logs with `ai-cli logs --priv-key-file privkey.json`.
+`--priv-key-file` is required. `start` **prints one JSON object, then stays in the foreground**. It does **not** stream logs to stdout. Runtime logs go to `log_path`. The process waits until you press **Ctrl+C** (stops **this wallet only**) or the node exits.
 
 ```json
 {
-  "running": true,
-  "pid": 12345,
-  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
+  "data_dir": "~/.local/share/aioz/ai-nodes/<uuid>",
   "evm_address": "0xAbc0…def1",
-  "storage_bytes": 10000000000
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>",
+  "log_path": "~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log",
+  "pid": 12345,
+  "pid_path": "~/.local/state/aioz/ai-cli/<uuid>/node.pid",
+  "running": true,
+  "storage_bytes": 10000000000,
+  "update": {
+    "skipped": false,
+    "newer": false,
+    "current": "0.24",
+    "current_commit": "v0.24.0-demo",
+    "remote": "0.24",
+    "remote_commit": "v0.24.0-demo",
+    "note": "CLI is up to date"
+  }
 }
 ```
 
-Without `--home`, data for this wallet is Linux `~/.local/share/aioz/ai-nodes/<uuid>/`, Windows `%LOCALAPPDATA%\AIOZ\ai-cli\ai-nodes\<uuid>/`, or macOS `~/Library/Application Support/AIOZ/ai-cli/home`. The wallet label is `identity/address` (next to the pid file), not the folder name.
+Ctrl+C then prints a **second** JSON object. `running` here is a **count** of other node processes still live (not a boolean):
+
+```json
+{
+  "running": 0,
+  "status": "stopped"
+}
+```
+
+If this wallet is already running, the first object is only `running`, `pid`, `pid_path`, plus `update`.
+
+Log paths:
+
+| OS | `log_path` |
+|----|------------|
+| Linux | `~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log` |
+| Windows | `%LOCALAPPDATA%\AIOZ\ai-cli\logs\<uuid>\ai.log` |
+| macOS | `~/Library/Logs/AIOZ/ai-cli/<uuid>/ai.log` |
 
 ## Usage
 
-### Node status
-
-For Windows
-
-```powershell
-.\ai-cli.exe status --priv-key-file privkey.json
-```
-
-For Linux and macOS
+### Status
 
 ```bash
 ./ai-cli status --priv-key-file privkey.json
@@ -213,35 +198,17 @@ For Linux and macOS
 
 ```json
 {
-  "home": "~/.local/share/aioz/ai-nodes/<uuid>/",
-  "running": false,
-  "evm_address": "0xAbc0…def1"
+  "evm_address": "0xAbc0…def1",
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>",
+  "log_path": "~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log",
+  "other_running": 0,
+  "running": false
 }
 ```
 
-For Windows
+`ai-cli status --all` lists every indexed home (`homes`, `nodes`, `running`). No `--priv-key-file`.
 
-```powershell
-.\ai-cli.exe status --all
-```
-
-For Linux and macOS
-
-```bash
-./ai-cli status --all
-```
-
-Lists every home on this machine. Does not need `--priv-key-file`.
-
-### Show storage
-
-For Windows
-
-```powershell
-.\ai-cli.exe storage show --priv-key-file privkey.json
-```
-
-For Linux and macOS
+### Storage show
 
 ```bash
 ./ai-cli storage show --priv-key-file privkey.json
@@ -249,48 +216,61 @@ For Linux and macOS
 
 ```json
 {
-  "storage_limit": "10000000000",
-  "storage_used": "1200000000",
+  "error": null,
   "near_full": false,
-  "error": null
+  "storage_limit": "10000000000",
+  "storage_used": "0"
 }
 ```
 
-Warns when used is at least 90% of the cap.
+`storage_limit` / `storage_used` are **byte strings**. `near_full` is true at ≥ 90% of the cap.
 
-### View reward
+### Logs
 
-For Windows
+`logs` is a **snapshot** (last `--bytes`, default 32 KiB), not a live follow. Secrets in the file are redacted.
 
-```powershell
-.\ai-cli.exe reward balance --priv-key-file privkey.json
+```bash
+./ai-cli logs --priv-key-file privkey.json
 ```
 
-For Linux and macOS
+```json
+{
+  "home": "~/.local/share/aioz/ai-nodes/<uuid>",
+  "log": "… redacted snapshot …",
+  "path": "~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log",
+  "wallet": "0xAbc0…def1"
+}
+```
+
+For a live UI, tail `path` / `log_path` on disk.
+
+### Reward balance
+
+Works with the node off.
 
 ```bash
 ./ai-cli reward balance --priv-key-file privkey.json
 ```
 
-Works with the node off.
-
 ```json
 {
-  "spendable": {"amount": "2500000000000000000", "denom": "attoaioz", "aioz": "2.5"},
-  "earned": {"amount": "2500000000000000000", "denom": "attoaioz", "aioz": "2.5"},
-  "earned_count": 10
+  "earned": {
+    "amount": "0",
+    "denom": "attoaioz",
+    "aioz": "0"
+  },
+  "earned_count": 0,
+  "spendable": {
+    "amount": "0",
+    "denom": "attoaioz",
+    "aioz": "0"
+  }
 }
 ```
 
-### Withdraw reward
+### Withdraw
 
-For Windows
-
-```powershell
-.\ai-cli.exe reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
-```
-
-For Linux and macOS
+`--address` is a MetaMask `0x` on AIOZ Chain. `--amount` is in AIOZ. Minimum **0.01 AIOZ**. `--yes` skips the confirm prompt.
 
 ```bash
 ./ai-cli reward withdraw --address 0xAbc0…def1 --amount 1 --priv-key-file privkey.json --yes
@@ -302,19 +282,9 @@ For Linux and macOS
 }
 ```
 
-**Note:** `--address` is a MetaMask `0x` on AIOZ Chain. `--amount` is in AIOZ. Minimum withdraw is **0.01 AIOZ**. `--yes` skips the confirm prompt.
+### Recover from mnemonic
 
-### Recover private key from mnemonic phrase
-
-The sidecar does not take the mnemonic as a command argument (it would leak in shell history and the process list). Put the words in a file, then:
-
-For Windows
-
-```powershell
-.\ai-cli.exe keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
-```
-
-For Linux and macOS
+Do not pass the mnemonic on the command line (shell history / process list). Put the words in a file:
 
 ```bash
 ./ai-cli keytool recover --mnemonic-file words.txt --save-priv-key privkey.json
@@ -322,20 +292,13 @@ For Linux and macOS
 
 ```json
 {
+  "address": "aioz1…",
   "address_evm": "0xAbc0…def1",
   "priv_key_file": "privkey.json"
 }
 ```
 
 ### Update
-
-For Windows
-
-```powershell
-.\ai-cli.exe update
-```
-
-For Linux and macOS
 
 ```bash
 ./ai-cli update
@@ -346,19 +309,16 @@ For Linux and macOS
   "skipped": false,
   "newer": false,
   "current": "0.24",
+  "current_commit": "v0.24.0-demo",
+  "remote": "0.24",
+  "remote_commit": "v0.24.0-demo",
   "note": "CLI is up to date"
 }
 ```
 
-### Stats / Logs
+### Stats
 
-For Windows
-
-```powershell
-.\ai-cli.exe stats --priv-key-file privkey.json
-```
-
-For Linux and macOS
+Hub snapshot (`wallet_address` is the hub field name):
 
 ```bash
 ./ai-cli stats --priv-key-file privkey.json
@@ -366,35 +326,16 @@ For Linux and macOS
 
 ```json
 {
-  "status": "Offline",
-  "wallet_address": "0xAbc0…def1",
-  "error": null
+  "ai_tasks": [],
+  "error": null,
+  "status": "Online",
+  "wallet_address": "0xAbc0…def1"
 }
 ```
 
-For Windows
-
-```powershell
-.\ai-cli.exe logs --priv-key-file privkey.json
-```
-
-For Linux and macOS
-
-```bash
-./ai-cli logs --priv-key-file privkey.json
-```
-
-Tails this wallet's `ai.log` (redacted on screen).
+If the hub is unreachable, this command prints an error on **stderr** instead of JSON.
 
 ### Doctor
-
-For Windows
-
-```powershell
-.\ai-cli.exe doctor --priv-key-file privkey.json
-```
-
-For Linux and macOS
 
 ```bash
 ./ai-cli doctor --priv-key-file privkey.json
@@ -404,7 +345,14 @@ For Linux and macOS
 {
   "ok": true,
   "checks": [
-    {"name": "os", "ok": true, "detail": "linux/amd64"}
+    {"name": "os", "ok": true, "detail": "linux/amd64"},
+    {"name": "home", "ok": true, "detail": "~/.local/share/aioz/ai-nodes/<uuid>"},
+    {"name": "disk", "ok": true, "detail": "100 GB free"},
+    {"name": "runtime", "ok": true, "detail": "ok"},
+    {"name": "wallet", "ok": true, "detail": "0xAbc0…def1"},
+    {"name": "log", "ok": true, "detail": "~/.local/state/aioz/ai-cli/logs/<uuid>/ai.log"},
+    {"name": "identity", "ok": true, "detail": "credential is --priv-key-file"},
+    {"name": "gpu", "ok": true, "detail": "NVIDIA, 8 GB"}
   ]
 }
 ```
