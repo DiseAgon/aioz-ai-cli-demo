@@ -31,8 +31,8 @@ Or download the zip:
 
 ```powershell
 cd $env:USERPROFILE
-curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.27.zip
-Expand-Archive -Path aioz-ai-cli-windows-amd64-0.27.zip -DestinationPath .
+curl.exe -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-windows-amd64-0.28.zip
+Expand-Archive -Path aioz-ai-cli-windows-amd64-0.28.zip -DestinationPath .
 ren aioz-ai-cli-windows-amd64.exe ai-cli.exe
 .\ai-cli.exe version
 ```
@@ -48,8 +48,8 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 Or the archive:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.27.tar.gz
-tar -xzf aioz-ai-cli-linux-amd64-0.27.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-linux-amd64-0.28.tar.gz
+tar -xzf aioz-ai-cli-linux-amd64-0.28.tar.gz
 mv aioz-ai-cli-linux-amd64 ai-cli
 ./ai-cli version
 ```
@@ -64,28 +64,28 @@ curl -fsSL https://github.com/DiseAgon/os-pack-dl/releases/latest/download/insta
 
 | `uname -m` | Chip | Archive | Inner file |
 |------------|------|---------|------------|
-| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.27.tar.gz` | `aioz-ai-cli-darwin-arm64` |
-| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.27.tar.gz` | `aioz-ai-cli-darwin-amd64` |
+| `arm64` | Apple Silicon (M1–M4) | `aioz-ai-cli-darwin-arm64-0.28.tar.gz` | `aioz-ai-cli-darwin-arm64` |
+| `x86_64` | Intel | `aioz-ai-cli-darwin-amd64-0.28.tar.gz` | `aioz-ai-cli-darwin-amd64` |
 
 Apple Silicon:
 
 ```bash
-curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.27.tar.gz
-tar -xzf aioz-ai-cli-darwin-arm64-0.27.tar.gz
+curl -LO https://github.com/DiseAgon/os-pack-dl/releases/latest/download/aioz-ai-cli-darwin-arm64-0.28.tar.gz
+tar -xzf aioz-ai-cli-darwin-arm64-0.28.tar.gz
 mv aioz-ai-cli-darwin-arm64 ai-cli
 xattr -dr com.apple.quarantine ./ai-cli
 ./ai-cli version
 ```
 
-Intel: same steps with `aioz-ai-cli-darwin-amd64-0.27.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
+Intel: same steps with `aioz-ai-cli-darwin-amd64-0.28.tar.gz` / `aioz-ai-cli-darwin-amd64`. Do not use the Intel archive on Apple Silicon.
 
 `version` (keys sorted):
 
 ```json
 {
-  "built": "2026-09-11T09:41:12Z",
-  "commit": "v0.27.0-demo",
-  "version": "0.27"
+  "built": "2026-09-12T06:09:57Z",
+  "commit": "v0.28.0-demo",
+  "version": "0.28"
 }
 ```
 
@@ -164,10 +164,10 @@ Without `--home`, this wallet gets a UUID folder under:
   "update": {
     "skipped": false,
     "newer": false,
-    "current": "0.27",
-    "current_commit": "v0.27.0-demo",
-    "remote": "0.27",
-    "remote_commit": "v0.27.0-demo",
+    "current": "0.28",
+    "current_commit": "v0.28.0-demo",
+    "remote": "0.28",
+    "remote_commit": "v0.28.0-demo",
     "note": "CLI is up to date"
   }
 }
@@ -313,10 +313,10 @@ Do not pass the mnemonic on the command line (shell history / process list). Put
 {
   "skipped": false,
   "newer": false,
-  "current": "0.27",
-  "current_commit": "v0.27.0-demo",
-  "remote": "0.27",
-  "remote_commit": "v0.27.0-demo",
+  "current": "0.28",
+  "current_commit": "v0.28.0-demo",
+  "remote": "0.28",
+  "remote_commit": "v0.28.0-demo",
   "note": "CLI is up to date"
 }
 ```
